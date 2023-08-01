@@ -1,4 +1,14 @@
+using WeatherAPI;
+using WeatherAPI.Integrators;
+using WeatherAPI.Managers;
+using WeatherAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<BookStoreDatabaseSettings>(builder.Configuration.GetSection("BookStoreDatabase"));
+builder.Services.AddSingleton<BooksService>();
+builder.Services.AddScoped<IWeatherManager, WeatherManager>();
+builder.Services.AddScoped<IOpenweathermapIntegrator, OpenweathermapIntegrator>();
 
 // Add services to the container.
 
@@ -15,8 +25,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
