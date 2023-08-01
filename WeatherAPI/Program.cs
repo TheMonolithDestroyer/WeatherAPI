@@ -1,14 +1,19 @@
 using WeatherAPI;
 using WeatherAPI.Integrators;
 using WeatherAPI.Managers;
+using WeatherAPI.Middlewares;
 using WeatherAPI.Services;
+using WeatherAPI.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<BookStoreDatabaseSettings>(builder.Configuration.GetSection("BookStoreDatabase"));
-builder.Services.AddSingleton<BooksService>();
-builder.Services.AddScoped<IWeatherManager, WeatherManager>();
+builder.Services.Configure<Mongosettings>(builder.Configuration.GetSection("Mongosettings"));
+builder.Services.Configure<OpenweathermapApisettings>(builder.Configuration.GetSection("OpenweathermapApisettings"));
+
+//builder.Services.AddSingleton<BooksService>();
+builder.Services.AddScoped<IWeatherForecastManager, WeatherForecastManager>();
 builder.Services.AddScoped<IOpenweathermapIntegrator, OpenweathermapIntegrator>();
+builder.Services.AddSingleton<IMongoDBService, MongoDBService>();
 
 // Add services to the container.
 
@@ -27,6 +32,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.MapControllers();
 

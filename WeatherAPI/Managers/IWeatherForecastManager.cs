@@ -1,6 +1,6 @@
 ﻿namespace WeatherAPI.Managers
 {
-    public interface IWeatherManager
+    public interface IWeatherForecastManager
     {
     }
 }
