@@ -14,9 +14,10 @@ namespace WeatherAPI.Controllers
             _manager = manager ?? throw new ArgumentNullException(nameof(_manager));
         }
 
-        public async Task<IActionResult> GetWeatherForecast(GetWeatherForecastCommand command)
+        [HttpPost]
+        public async Task<IActionResult> GetWeatherForecast([FromBody]GetWeatherForecastCommand command)
         {
-            return Ok();
+            return StatusCode(201, await _manager.GetWeatherForecast(command));
         }
     }
 }

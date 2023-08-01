@@ -4,9 +4,8 @@ namespace WeatherAPI.Commands
 {
     public class GetWeatherForecastCommand
     {
-        public string? Latitude { get; set; }
-        public string? Longitude { get; set; }
-        public DateTime Date { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 
     public class GetWeatherForecastCommandValidator : AbstractValidator<GetWeatherForecastCommand>
@@ -14,16 +13,12 @@ namespace WeatherAPI.Commands
         public GetWeatherForecastCommandValidator()
         {
             RuleFor(arg => arg.Latitude)
-                .Must(p => !string.IsNullOrWhiteSpace(p))
+                .Must(p => p >= double.MinValue && p <= double.MaxValue)
                 .WithMessage("'{PropertyName}' is required field.");
 
             RuleFor(arg => arg.Longitude)
-                .Must(p => !string.IsNullOrWhiteSpace(p))
+                .Must(p => p >= double.MinValue && p <= double.MaxValue)
                 .WithMessage("'{PropertyName}' is required field.");
-
-            // After impl integration, check this validator
-            RuleFor(arg => arg.Date)
-                .Must(p => p > DateTime.MinValue && p <= DateTime.MaxValue);
         }
     }
 }

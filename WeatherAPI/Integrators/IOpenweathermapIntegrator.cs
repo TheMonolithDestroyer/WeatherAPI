@@ -1,6 +1,7 @@
 ﻿namespace WeatherAPI.Integrators
 {
-    public interface IOpenweathermapIntegrator
+    public interface IOpenWeatherMapIntegrator
     {
+        Task<string> CallCurrentWeatherData(double lat, double lon);
     }
 }
