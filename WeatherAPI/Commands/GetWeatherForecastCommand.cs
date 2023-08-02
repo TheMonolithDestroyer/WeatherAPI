@@ -13,12 +13,12 @@ namespace WeatherAPI.Commands
         public GetWeatherForecastCommandValidator()
         {
             RuleFor(arg => arg.Latitude)
-                .Must(p => p >= double.MinValue && p <= double.MaxValue)
-                .WithMessage("'{PropertyName}' is required field.");
+                .Must(p => p >= -90.0 && p <= 90.0)
+                .WithMessage("'{PropertyName}' is out of range.");
 
             RuleFor(arg => arg.Longitude)
-                .Must(p => p >= double.MinValue && p <= double.MaxValue)
-                .WithMessage("'{PropertyName}' is required field.");
+                .Must(p => p >= -180.0 && p <= 180.0)
+                .WithMessage("'{PropertyName}' is out of range.");
         }
     }
 }

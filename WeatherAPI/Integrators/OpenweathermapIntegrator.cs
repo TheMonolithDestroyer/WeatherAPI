@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using WeatherAPI.Models;
 using WeatherAPI.Settings;
 
 namespace WeatherAPI.Integrators
@@ -26,7 +28,7 @@ namespace WeatherAPI.Integrators
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<string> CallCurrentWeatherData(double lat, double lon)
+        public async Task<CurrentWeather?> CallCurrentWeatherData(double lat, double lon)
         {
             try
             {
@@ -35,8 +37,10 @@ namespace WeatherAPI.Integrators
                 var request = new HttpRequestMessage(HttpMethod.Get, currentWeatherUri);
                 var response = await _httpClient.SendAsync(request);
                 response.EnsureSuccessStatusCode();
+                var responseContent = await response.Content.ReadAsStringAsync();
 
-                return await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<CurrentWeather>(responseContent);
+                return result;
             }
             catch (HttpRequestException httpReqEx)
             {

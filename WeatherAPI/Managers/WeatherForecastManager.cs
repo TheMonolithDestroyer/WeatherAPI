@@ -30,18 +30,14 @@ namespace WeatherAPI.Managers
             if (!validationResult.IsValid)
                 throw new BadRequestException(validationResult.ToString(" "));
 
-            await _dataAccess.CreateAsync(new WeatherApiCallHistory
-            {
-                Key = "Request",
-                Data = Newtonsoft.Json.JsonConvert.SerializeObject(command)
-            });
-
             var currentWeatherForecast = await _integrator.CallCurrentWeatherData(command.Latitude, command.Longitude);
-            await _dataAccess.CreateAsync(new WeatherApiCallHistory
+
+            var data = new WeatherApiCallHistory()
             {
-                Key = "Response",
-                Data = currentWeatherForecast
-            });
+                RequestData = command,
+                ResponseData = currentWeatherForecast
+            };
+            await _dataAccess.CreateAsync(data);
 
             return Result.Succeed(currentWeatherForecast, HttpStatusCode.Created);
         }

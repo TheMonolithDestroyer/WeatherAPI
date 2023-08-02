@@ -4,20 +4,20 @@ namespace WeatherAPI
 {
     public class Result
     {
-        public Result(bool success, string? message, HttpStatusCode statusCode)
+        public Result(bool success, string? message, HttpStatusCode status)
         {
             Success = success;
             Message = message;
-            StatusCode = statusCode;
+            Status = status;
         }
 
-        public Result(object? data, bool success, string? message, HttpStatusCode statusCode) : this(success, message, statusCode)
+        public Result(object? data, bool success, string? message, HttpStatusCode status) : this(success, message, status)
         {
             Data = data;
         }
 
         public object? Data { get; set; }
-        public HttpStatusCode StatusCode { get; set; }
+        public HttpStatusCode Status { get; set; }
         public bool Success { get; set; }
         public string? Message { get; set; }
 
