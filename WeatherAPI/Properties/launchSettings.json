@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "DevelopmentHttp": {
+    "WeatherHttp": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
@@ -19,7 +19,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "DevelopmentHttps": {
+    "WeatherHttps": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
