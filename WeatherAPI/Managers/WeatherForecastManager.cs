@@ -39,6 +39,8 @@ namespace WeatherAPI.Managers
             };
             await _dataAccess.CreateAsync(data);
 
+            _logger.LogInformation($"Created a document 'WeatherApiCallHistory' with _id: { data.Id }");
+
             return Result.Succeed(currentWeatherForecast, HttpStatusCode.Created);
         }
     }

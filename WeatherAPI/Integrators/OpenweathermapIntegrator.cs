@@ -30,26 +30,20 @@ namespace WeatherAPI.Integrators
 
         public async Task<CurrentWeather?> CallCurrentWeatherData(double lat, double lon)
         {
-            try
-            {
-                var currentWeatherUri = string.Format(_settings!.CurrentWeatherUri!, lat, lon, _settings.ApiKey);
+            var currentWeatherUri = string.Format(_settings!.CurrentWeatherUri!, lat, 123123123, _settings.ApiKey);
 
-                var request = new HttpRequestMessage(HttpMethod.Get, currentWeatherUri);
-                var response = await _httpClient.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                var responseContent = await response.Content.ReadAsStringAsync();
+            var request = new HttpRequestMessage(HttpMethod.Get, currentWeatherUri);
+            var response = await _httpClient.SendAsync(request);
+            var responseContent = await response.Content.ReadAsStringAsync();
 
-                var result = JsonConvert.DeserializeObject<CurrentWeather>(responseContent);
-                return result;
-            }
-            catch (HttpRequestException httpReqEx)
-            {
-                throw new Exception("API call was unsuccessful.", httpReqEx);
-            }
-            catch(Exception)
-            {
-                throw;
-            }
+            if (!response.IsSuccessStatusCode)
+                throw new HttpRequestException($"Unsuccessful API call.", null, response.StatusCode);
+
+            var result = JsonConvert.DeserializeObject<CurrentWeather>(responseContent);
+
+            _logger.LogInformation($"Successful API call: {JsonConvert.SerializeObject(result)}");
+
+            return result;
         }
     }
 }
