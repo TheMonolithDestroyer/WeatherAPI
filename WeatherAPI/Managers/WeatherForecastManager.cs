@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using WeatherAPI.Commands;
+using WeatherAPI.Engine.Exceptions;
 using WeatherAPI.Entities;
-using WeatherAPI.Exceptions;
 using WeatherAPI.Integrators;
 using WeatherAPI.Services;
 
@@ -18,7 +18,6 @@ namespace WeatherAPI.Managers
             IOpenWeatherMapIntegrator integrator,
             IDataAccessService dataAccess)
         {
-
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _integrator = integrator ?? throw new ArgumentNullException(nameof(integrator));
             _dataAccess = dataAccess ?? throw new ArgumentNullException(nameof(dataAccess));

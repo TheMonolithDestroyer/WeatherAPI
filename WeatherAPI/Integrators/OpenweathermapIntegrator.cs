@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using WeatherAPI.Engine.Settings;
 using WeatherAPI.Models;
-using WeatherAPI.Settings;
 
 namespace WeatherAPI.Integrators
 {
@@ -30,7 +30,7 @@ namespace WeatherAPI.Integrators
 
         public async Task<CurrentWeather?> CallCurrentWeatherData(double lat, double lon)
         {
-            var currentWeatherUri = string.Format(_settings!.CurrentWeatherUri!, lat, 123123123, _settings.ApiKey);
+            var currentWeatherUri = string.Format(_settings!.CurrentWeatherUri!, lat, lon, _settings.ApiKey);
 
             var request = new HttpRequestMessage(HttpMethod.Get, currentWeatherUri);
             var response = await _httpClient.SendAsync(request);

@@ -1,4 +1,4 @@
-﻿namespace WeatherAPI.Settings
+﻿namespace WeatherAPI.Engine.Settings
 {
     public class Mongosettings
     {

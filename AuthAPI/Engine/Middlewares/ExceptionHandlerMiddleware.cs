@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using WeatherAPI.Exceptions;
+using AuthAPI.Engine.Exceptions;
 
-namespace WeatherAPI.Middlewares
+namespace AuthAPI.Engine.Middlewares
 {
     public class ExceptionHandlerMiddleware
     {
@@ -28,6 +28,11 @@ namespace WeatherAPI.Middlewares
                 {
                     statusCode = notFoundException.StatusCode;
                     message = notFoundException.Message;
+                }
+                else if (ex is UnauthorizedException unauthException)
+                {
+                    statusCode = unauthException.StatusCode;
+                    message = unauthException.Message;
                 }
                 else
                 {

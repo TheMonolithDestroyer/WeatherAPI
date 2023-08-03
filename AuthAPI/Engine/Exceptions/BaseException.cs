@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace WeatherAPI.Exceptions
+namespace AuthAPI.Engine.Exceptions
 {
     public class BaseException : Exception
     {
@@ -10,11 +10,11 @@ namespace WeatherAPI.Exceptions
             StatusCode = statusCode;
         }
 
-        public BaseException(HttpStatusCode statusCode, string message) : this(statusCode, message, null)
+        public BaseException(HttpStatusCode statusCode, string? message) : this(statusCode, message, null)
         {
         }
 
-        public BaseException(HttpStatusCode statusCode, string message, Exception? inner) : base(message, inner)
+        public BaseException(HttpStatusCode statusCode, string? message, Exception? inner) : base(message, inner)
         {
             StatusCode = statusCode;
         }

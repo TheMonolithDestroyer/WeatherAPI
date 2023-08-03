@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using WeatherAPI.Settings;
+using WeatherAPI.Engine.Settings;
 
 namespace WeatherAPI.Services
 {

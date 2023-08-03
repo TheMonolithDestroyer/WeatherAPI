@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace WeatherAPI.Exceptions
+namespace WeatherAPI.Engine.Exceptions
 {
     public class BadRequestException : BaseException
     {

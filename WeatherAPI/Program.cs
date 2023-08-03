@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Polly;
 using Polly.Extensions.Http;
+using System.Text;
+using WeatherAPI.Engine;
+using WeatherAPI.Engine.Middlewares;
+using WeatherAPI.Engine.Settings;
 using WeatherAPI.Integrators;
 using WeatherAPI.Managers;
-using WeatherAPI.Middlewares;
 using WeatherAPI.Services;
-using WeatherAPI.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,16 +25,34 @@ builder.Services.AddHttpClient<IOpenWeatherMapIntegrator, OpenWeatherMapIntegrat
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ClockSkew = TimeSpan.Zero,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "apiWithAuthBackend",
+            ValidAudience = "apiWithAuthBackend",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAru+OlQN/XBpYBDbP2XL7j6ztS2VJx/l7u/FPWgwx5v5gDung319+dh5ze/d9Mspkushi46f66uBUffJfwCb/KYNxS0lcAMezYHcZryy0uuBVUWg8vLiM/89gc2KME0FzjJHC32yTgb+Ddq5bCNFe636ELoPP5N6YiDN9hOo4r/Nz6kQGy66ioFv9kGRrNS1he9qBL2cVt0DjT1YacWQqReFa0R050Qv8vmdRmOWvrz9GT1Vh9oG1QrWD97IXvw9TQJGiVRwNEr8NLR9sN/+bEBCcRy1IWwhjxj6IMzXNppJhA0z2ceS5Bab8nLlOd/kLeBxmvUJa+DuybOkhdSwNPwIDAQAB"))
+        };
+
+    });
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerDocument(builder.Environment, builder.Configuration);
 }
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
