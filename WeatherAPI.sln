@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherAPI", "WeatherAPI\WeatherAPI.csproj", "{25A1E1BD-38DD-4B05-BC69-AB6FC616A91F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthAPI", "AuthAPI\AuthAPI.csproj", "{00A68641-821E-4041-823C-5AD1804923ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthAPI", "AuthAPI\AuthAPI.csproj", "{00A68641-821E-4041-823C-5AD1804923ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobAPI", "BlobAPI\BlobAPI.csproj", "{E9DA5A77-FBE4-4F67-8528-6F7F72D0BA6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{00A68641-821E-4041-823C-5AD1804923ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00A68641-821E-4041-823C-5AD1804923ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00A68641-821E-4041-823C-5AD1804923ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9DA5A77-FBE4-4F67-8528-6F7F72D0BA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9DA5A77-FBE4-4F67-8528-6F7F72D0BA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9DA5A77-FBE4-4F67-8528-6F7F72D0BA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9DA5A77-FBE4-4F67-8528-6F7F72D0BA6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
