@@ -50,6 +50,6 @@ namespace WeatherAPI.Clients
 
         //    var consumer = new RabbitMQ.Client.Events.EventingBasicConsumer(_channel);
         //    _channel.BasicPublish(queue: _queueName, autoAck: false, consumer: consumer);
-        }
+        //}
     }
 }
