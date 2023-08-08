@@ -1,8 +1,8 @@
 ﻿using WeatherAPI.Models;
 
-namespace WeatherAPI.Integrators
+namespace WeatherAPI.Clients
 {
-    public interface IOpenWeatherMapIntegrator
+    public interface IOpenWeatherMapClient
     {
         Task<CurrentWeather?> CallCurrentWeatherData(double lat, double lon);
     }

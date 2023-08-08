@@ -1,8 +1,8 @@
 ﻿using System.Net;
+using WeatherAPI.Clients;
 using WeatherAPI.Commands;
 using WeatherAPI.Engine.Exceptions;
 using WeatherAPI.Entities;
-using WeatherAPI.Integrators;
 using WeatherAPI.Services;
 
 namespace WeatherAPI.Managers
@@ -10,16 +10,16 @@ namespace WeatherAPI.Managers
     public class WeatherForecastManager : IWeatherForecastManager
     {
         private readonly ILogger<WeatherForecastManager> _logger;
-        private readonly IOpenWeatherMapIntegrator _integrator;
+        private readonly IOpenWeatherMapClient _openWeatherMapClient;
         private readonly IDataAccessService _dataAccess;
 
         public WeatherForecastManager(
             ILogger<WeatherForecastManager> logger,
-            IOpenWeatherMapIntegrator integrator,
+            IOpenWeatherMapClient openWeatherMapClient,
             IDataAccessService dataAccess)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _integrator = integrator ?? throw new ArgumentNullException(nameof(integrator));
+            _openWeatherMapClient = openWeatherMapClient ?? throw new ArgumentNullException(nameof(openWeatherMapClient));
             _dataAccess = dataAccess ?? throw new ArgumentNullException(nameof(dataAccess));
         }
 
@@ -29,7 +29,7 @@ namespace WeatherAPI.Managers
             if (!validationResult.IsValid)
                 throw new BadRequestException(validationResult.ToString(" "));
 
-            var currentWeatherForecast = await _integrator.CallCurrentWeatherData(command.Latitude, command.Longitude);
+            var currentWeatherForecast = await _openWeatherMapClient.CallCurrentWeatherData(command.Latitude, command.Longitude);
 
             var data = new WeatherApiCallHistory()
             {

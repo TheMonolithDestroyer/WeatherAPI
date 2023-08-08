@@ -3,10 +3,10 @@ using Microsoft.IdentityModel.Tokens;
 using Polly;
 using Polly.Extensions.Http;
 using System.Text;
+using WeatherAPI.Clients;
 using WeatherAPI.Engine;
 using WeatherAPI.Engine.Middlewares;
 using WeatherAPI.Engine.Settings;
-using WeatherAPI.Integrators;
 using WeatherAPI.Managers;
 using WeatherAPI.Services;
 
@@ -19,7 +19,7 @@ builder.Services.Configure<OpenweathermapApisettings>(builder.Configuration.GetS
 builder.Services.AddScoped<IWeatherForecastManager, WeatherForecastManager>();
 builder.Services.AddSingleton<IDataAccessService, DataAccessService>();
 builder.Services.AddSingleton<IMongoDbFactory, MongoDbFactory>();
-builder.Services.AddHttpClient<IOpenWeatherMapIntegrator, OpenWeatherMapIntegrator>()
+builder.Services.AddHttpClient<IOpenWeatherMapClient, OpenWeatherMapClient>()
     .AddPolicyHandler(HttpPolicyExtensions.HandleTransientHttpError().WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(5)));
 
 builder.Services.AddControllers();

@@ -4,16 +4,16 @@ using System.Net.Http.Headers;
 using WeatherAPI.Engine.Settings;
 using WeatherAPI.Models;
 
-namespace WeatherAPI.Integrators
+namespace WeatherAPI.Clients
 {
-    public class OpenWeatherMapIntegrator : IOpenWeatherMapIntegrator
+    public class OpenWeatherMapClient : IOpenWeatherMapClient
     {
-        private readonly ILogger<OpenWeatherMapIntegrator> _logger;
+        private readonly ILogger<OpenWeatherMapClient> _logger;
         private readonly OpenweathermapApisettings _settings;
         private readonly HttpClient _httpClient;
 
-        public OpenWeatherMapIntegrator(
-            ILogger<OpenWeatherMapIntegrator> logger,
+        public OpenWeatherMapClient(
+            ILogger<OpenWeatherMapClient> logger,
             IOptions<OpenweathermapApisettings> options,
             HttpClient httpClient)
         {
